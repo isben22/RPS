@@ -1,0 +1,7 @@
+Player selects gametype (best two of three or best three of five) - this is a useability add
+round selection will be pushed into iteration count
+[R] Player selects single player or multi-player.
+[R] Player selects thier choice (from array)
+if one player, program will execute after first choice (computer will math.random from earlier app to choose)
+winning result will be displayed with message. on same line ask if they ar ready for next round (to avoid form pop-ups)
+
