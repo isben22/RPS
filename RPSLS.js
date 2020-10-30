@@ -5,18 +5,10 @@ class Game {
     constructor() {
         this.playerOne = new Player();
         this.playerTwo = new Player();
-        //this.playerOne.chooseGesture();
-        //this.playerTwo.chooseGesture();
-
     }
     runGame() {// "main" method
         displayRules();
-
-        if (this.playerOne.score == 2 || this.playerTwo.score == 2) {
-            console.log("Win");
-
-        }
-
+     
         let numberOfRounds = 0;
         let roundNumer = 0;
         let gameModeEntry = [];
@@ -37,45 +29,62 @@ class Game {
                 break;
         }
 
-// here we start by launching the single player dialog
-
-while (gameModeEntry = 3) {
     
+    if (gameModeEntry = 'single') {
+            this.generateRandomGesture.playerOne();
+            this.selectGesture.playerTwo();
+
     
-}
 
-
-
-
-
-
+    
     }
+    
 
 
-//singlePlayer choice
-var gestures = ["Rock", "Paper", "Scissors", "Lizard", "Spock"];
-function computerSelection() {
-    let randomNumber = Math.floor(Math.random() * gestures.length);
-    let finalComputerselection = gestures[randomNumber];
-    return finalComputerselection;
 }
-function multiplayerSelection() {
-    let playerSelection =[gestures];
-    return playerSelection;
+
+    
 }
+
 //-----------------game end----------------
 class Player {
-    constructor() {
-        this.type = []; //computer or player
+    constructor(name) {
         this.score = 0;
         this.name = name;
+
     }
 }
-class Choice{
-    constructor(){
-        this.gestureSelection = [];
 
-}
+class Human extends Player {
+    constructor(name) {
+        super(name);
+        selectGesture();
+            let selectGesture = prompt("Please select 1 - Rock, 2 - Paper, 3 - Scissors, 4- Lizard, or 5-Spock.");
+            return selectGesture;
+        }
+    }
+
+class Ai extends Player {
+    constructor() {
+        super();
+        generateRandomGesture();
+            let gestures = ["Rock", "Paper", "Scissors", "Lizard", "Spock"];
+            let randomNumber = Math.floor(Math.random() * gestures.length);
+            let finalComputerselection = gestures[randomNumber];
+            return finalComputerselection;
+        }
+    }
+
+    class Gesture{ //this is to hold the values of what beats what
+        constructor(){
+            this.name="";
+            this.win=[];
+            this.loose=[];
+        }
+    }
+
+    class 
+
 function gameMode() {
     let gameMode = prompt(" would you like single or multi player?");
     return gameMode;
