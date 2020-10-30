@@ -5,3 +5,4 @@ round selection will be pushed into iteration count
 if one player, program will execute after first choice (computer will math.random from earlier app to choose)
 winning result will be displayed with message. on same line ask if they ar ready for next round (to avoid form pop-ups)
 
+//notes
