@@ -1,7 +1,6 @@
 "use strict"
 
 class Game {
-
     constructor() {
         this.playerOne = null;
         this.playerTwo = null;
@@ -31,7 +30,6 @@ class Game {
         if (rounds == 3 || rounds == 5) {
             this.numberOfRounds = rounds;
         } else {
-            // this.gameRound = numberOfRounds;
             alert("You did not submit a valid entry, please try again.")
             this.gameRounds();
         }
@@ -45,75 +43,99 @@ class Game {
         this.choosePlayers();
         this.gameRounds();
 
-        //TODO need to tie picks into win talley
         while (this.gameRound < this.numberOfRounds) {
             this.playerOne.gestureChoice();
             this.playerTwo.gestureChoice();
             this.gameRound++;
             this.gameGestureRules();
+            this.scoreModel();
         }
-
     }
+
     //game logic
-    gameGestureRules() { 
-        if (this.playerOne.gestureChoice == "Rock") {
-            if (this.playerTwo.gestureChoice == "Paper" || this.playerTwo.gestureChoice == "spock") {
-                result = userWins;
+    gameGestureRules() {
+        let result = "";
+        let p1Wins = "";
+        let p2Wins = "";
+        let draw = "";
+        if (this.playerOne.choice == "rock") {
+            if (this.playerTwo.choice == "paper" || this.playerTwo.choice == "spock") {
+                result = "p2Wins";
             }
-            else if (this.playerTwo.gestureChoice == "Rock") {
-                result = draw;
+            else if (this.playerTwo.choice == "rock") {
+                result = "draw";
             }
             else {
-                result = aiWins;
+                result = "p1Wins";
             }
         }
-        else if (this.playerOne.gestureChoice == "Paper") {
-            if (this.playerTwo.gestureChoice == "scissor" || this.playerTwo.gestureChoice == "lizard") {
-                result = userWins;
+        else if (this.playerOne.choice == "paper") {
+            if (this.playerTwo.choice == "scissor" || this.playerTwo.choice == "lizard") {
+                result = "p2Wins";
             }
-            else if (this.playerTwo.gestureChoice == "paper") {
-                result = draw;
+            else if (this.playerTwo.choice == "paper") {
+                result = "draw";
             }
             else {
-                result = aiWins;
+                result = "p1Wins";
             }
         }
-        else if (this.playerOne.gestureChoice == "Scissor") {
-            if (this.playerTwo.gestureChoice == "spock" || this.playerTwo.gestureChoice == "rock") {
-                result = userWins;
+        else if (this.playerOne.choice == "scissor") {
+            if (this.playerTwo.choice == "spock" || this.playerTwo.choice == "rock") {
+                result = 'p2Wins';
             }
-            else if (this.playerTwo.gestureChoice == "scissor") {
-                result = draw;
+            else if (this.playerTwo.choice == "scissor") {
+                result = "draw";
             }
             else {
-                result = aiWins;
+                result = "p1Wins";
             }
         }
-        else if (this.playerOne.gestureChoice == "Lizard") {
-            if (this.playerTwo.gestureChoice == "rock" || this.playerTwo.gestureChoice == "scissor") {
-                result = aiWins;
+        else if (this.playerOne.choice == "lizard") {
+            if (this.playerTwo.choice == "rock" || this.playerTwo.choice == "scissor") {
+                result = 'p2Wins';
             }
-            else if (this.playerTwo.gestureChoice == "lizard") {
-                result = draw;
+            else if (this.playerTwo.choice == "lizard") {
+                result = "draw";
             }
             else {
-                result = aiWins;
+                result = "p1Wins";
             }
         }
-        else if (this.playerOne.gestureChoice == "Spock") {
-            if (this.playerTwo.gestureChoice == "lizard" || this.playerTwo.gestureChoice == "paper") {
-                result = userWins;
+        else if (this.playerOne.choice == "spock") {
+            if (this.playerTwo.choice == "lizard" || this.playerTwo.choice == "paper") {
+                result = "p2Wins";
             }
-            else if (userthis.playerTwo.gestureChoice == "spock") {
-                result = draw;
+            else if (this.playerTwo.choice == "spock") {
+                result = "draw";
             }
             else {
-                result = aiWins;
+                result = "p1Wins";
             }
+        }
+        if (result === "p1Wins") {
+            console.log(this.playerOne.name + "Wins");
+            this.playerOne.score += 1;
+        } else if (result === "p2Wins") {
+            console.log(this.playerTwo.name + "Wins");
+            this.playerTwo.score += 1;
+        } else {
+            console.log("It is a draw");
+        }
+    
+    }
+    //score logic
+    scoreModel() {
+        if (this.playerOne.score > this.playerTwo.score) {
+            alert(this.playerOne.name + " wins!");
+        }
+        else {
+            alert(this.playerTwo.name + "wins!");
         }
     }
-
 }
+
+
 
 // finalScore(){
 //    alert("you won I think!");
@@ -123,7 +145,7 @@ class Player {
         this.score = 0;
         this.name = name;
         this.choice = "";
-        this.gestures = [new Rock, new Paper, new Scissors, new Lizard, new Spock];
+        this.gestures = [new rock, new paper, new scissors, new lizard, new spock];
     }
     gestureChoice() {
         console.log("Override this method");
@@ -147,7 +169,7 @@ class Human extends Player {
         while (gestureChoice = ""); {
             gestureChoice = prompt("What do you choose: Rock, Paper, Scissor, Lizard, Spock?");
         }
-        this.choice = gestureChoice;
+        this.choice = gestureChoice.toLowerCase();
     }
 }
 class Ai extends Player {
@@ -156,10 +178,10 @@ class Ai extends Player {
     }
 
     gestureChoice() {
-        let gestureItems = ['Rock', 'Paper', 'Scissors', 'Lizard', 'Spock'];
+        let gestureItems = ['rock', 'paper', 'scissors', 'lizard', 'spock'];
         let randomNumber = Math.floor(Math.random() * this.gestures.length);
         let finalComputerselection = gestureItems[randomNumber];
-        return finalComputerselection;
+        this.choice = finalComputerselection.toLowerCase();
     }
 
 }
@@ -169,34 +191,34 @@ class Gesture { //this is to hold the values of what beats what
 
     }
 }
-class Rock extends Gesture {
+class rock extends Gesture {
     constructor() {
         super();
-        this.name = "Rock";
+        this.name = "rock";
     }
 }
-class Paper extends Gesture {
+class paper extends Gesture {
     constructor() {
         super();
-        this.name = "Paper";
+        this.name = "paper";
     }
 }
-class Scissors extends Gesture {
+class scissors extends Gesture {
     constructor() {
         super();
-        this.name = "Scissors";
+        this.name = "scissors";
     }
 }
-class Lizard extends Gesture {
+class lizard extends Gesture {
     constructor() {
         super();
-        this.name = "Lizard";
+        this.name = "lizard";
     }
 }
-class Spock extends Gesture {
+class spock extends Gesture {
     constructor() {
         super();
-        this.name = "Spock";
+        this.name = "spock";
     }
 }
 function gameMode() {
